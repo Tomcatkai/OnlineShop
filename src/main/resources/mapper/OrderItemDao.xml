@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.onlineshop.dao.OrderItemDao" >
+  <resultMap id="BaseResultMap" type="com.onlineshop.entity.OrderItem" >
+    <id column="order_item_id" property="orderItemId" jdbcType="CHAR" />
+    <result column="book_num" property="bookNum" jdbcType="INTEGER" />
+    <result column="book_id" property="bookId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="CHAR" />
+  </resultMap>
+  <resultMap id="OrderItemMsgMap" type="com.onlineshop.dto.OrderItemMsgDto" >
+    <id column="order_item_id" property="orderItemId" jdbcType="CHAR" />
+    <result column="book_num" property="bookNum" jdbcType="INTEGER" />
+    <result column="book_id" property="bookId" jdbcType="INTEGER" />
+    <result column="book_name" property="bookName" jdbcType="VARCHAR" />
+    <result column="book_pic_big" property="bookPicBig" jdbcType="VARCHAR" />
+    <result column="book_price_current" property="bookPriceCurrent" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_item_id, book_num, book_id, order_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_item
+    where order_item_id = #{orderItemId,jdbcType=CHAR}
+  </select>
+  <!--查询指定订单下的订单条目信息-->
+  <select id="selectOrderItems" parameterType="java.lang.String" resultMap="OrderItemMsgMap">
+    SELECT item.order_item_id,item.book_num,item.book_id,book.book_name,book.book_pic_big,book.book_price_current
+    FROM order_item AS item LEFT JOIN book ON item.book_id = book.book_id
+    WHERE item.order_id = #{orderId}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from order_item
+    where order_item_id = #{orderItemId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.onlineshop.entity.OrderItem" >
+    insert into order_item (order_item_id, book_num, book_id, 
+      order_id)
+    values (#{orderItemId,jdbcType=CHAR}, #{bookNum,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER}, 
+      #{orderId,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.onlineshop.entity.OrderItem" >
+    insert into order_item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderItemId != null" >
+        order_item_id,
+      </if>
+      <if test="bookNum != null" >
+        book_num,
+      </if>
+      <if test="bookId != null" >
+        book_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderItemId != null" >
+        #{orderItemId,jdbcType=CHAR},
+      </if>
+      <if test="bookNum != null" >
+        #{bookNum,jdbcType=INTEGER},
+      </if>
+      <if test="bookId != null" >
+        #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.onlineshop.entity.OrderItem" >
+    update order_item
+    <set >
+      <if test="bookNum != null" >
+        book_num = #{bookNum,jdbcType=INTEGER},
+      </if>
+      <if test="bookId != null" >
+        book_id = #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=CHAR},
+      </if>
+    </set>
+    where order_item_id = #{orderItemId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.onlineshop.entity.OrderItem" >
+    update order_item
+    set book_num = #{bookNum,jdbcType=INTEGER},
+      book_id = #{bookId,jdbcType=INTEGER},
+      order_id = #{orderId,jdbcType=CHAR}
+    where order_item_id = #{orderItemId,jdbcType=CHAR}
+  </update>
+</mapper>

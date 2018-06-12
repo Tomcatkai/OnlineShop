@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    <context:annotation-config/>
+    <!--启动注解驱动的Spring MVC功能,注册请求url和注解POJO类方法的映射-->
+    <mvc:annotation-driven/>
+    <!--spring扫描web包下所有的类,让标注Spring注解的类生效.-->
+    <!--<context:component-scan base-package="com.onlineshop.web"/>-->
+    <context:component-scan base-package="com.onlineshop.web">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <!--视图名称解析器,将视图逻辑名解析为/WEB-INF/views/<viewName>.jsp的视图对象-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/views/" p:suffix=".jsp"/>
+
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"
+          p:messageConverters-ref="messageConverters"/>
+    <util:list id="messageConverters">
+        <bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
+        <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+        <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+        <bean class="org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter"/>
+        <bean class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter"
+              p:marshaller-ref="xmlMarshaller"
+              p:unmarshaller-ref="xmlMarshaller">
+        </bean>
+        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+    </util:list>
+    <!--声明Marshaller,使用XStream技术-->
+    <bean id="xmlMarshaller" class="org.springframework.oxm.xstream.XStreamMarshaller">
+        <property name="streamDriver">
+            <bean class="com.thoughtworks.xstream.io.xml.StaxDriver"/>
+        </property>
+
+        <property name="annotatedClasses">
+            <list>
+                <value>com.onlineshop.entity.IsEmailRegistered</value>
+            </list>
+        </property>
+        <!--&lt;!&ndash; 处理请求返回json字符串的乱码问题 &ndash;&gt;-->
+        <!--<mvc:annotation-driven>-->
+            <!--<mvc:message-converters>-->
+                <!--<bean class="org.springframework.http.converter.StringHttpMessageConverter">-->
+                    <!--<property name="supportedMediaTypes">-->
+                        <!--<list>-->
+                            <!--<value>application/json;charset=UTF-8</value>-->
+                        <!--</list>-->
+                    <!--</property>-->
+                <!--</bean>-->
+            <!--</mvc:message-converters>-->
+        <!--</mvc:annotation-driven>-->
+
+    </bean>
+</beans>

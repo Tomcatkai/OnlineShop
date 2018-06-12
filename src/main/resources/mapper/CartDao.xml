@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.onlineshop.dao.CartDao">
+    <resultMap id="BaseResultMap" type="com.onlineshop.entity.Cart">
+        <id column="cart_id" property="cartId" jdbcType="CHAR"/>
+        <result column="cart_uid" property="cartUid" jdbcType="CHAR"/>
+        <result column="cart_book_id" property="cartBookId" jdbcType="INTEGER"/>
+        <result column="cart_book_num" property="cartBookNum" jdbcType="INTEGER"/>
+    </resultMap>
+    <resultMap id="CartDtoMap" type="com.onlineshop.dto.CartItemDto">
+        <id column="cart_id" property="cartId" jdbcType="CHAR"/>
+        <result column="cart_uid" property="cartUid" jdbcType="CHAR"/>
+        <result column="cart_book_id" property="cartBookId" jdbcType="INTEGER"/>
+        <result column="cart_book_num" property="cartBookNum" jdbcType="INTEGER"/>
+        <result column="book_price_current" property="bookPriceCurrent" jdbcType="DOUBLE"/>
+        <result column="book_name" property="bookName" jdbcType="VARCHAR"/>
+        <result column="book_pic_big" property="bookPicBig" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    cart_id, cart_uid, cart_book_id, cart_book_num
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from cart
+        where cart_id = #{cartId,jdbcType=CHAR}
+    </select>
+    <!--根据用户id,图书id;  查询购物车记录-->
+    <select id="queryByUidAndBid" resultMap="BaseResultMap">
+        SELECT * FROM `cart` WHERE cart_uid =#{userId} AND cart_book_id =#{bookId}
+    </select>
+    <!--根据用户id，查询该用户所拥有的购物车-->
+    <select id="selectByUserId" resultMap="CartDtoMap" parameterType="java.lang.String">
+       SELECT
+       c.cart_id,
+       c.cart_uid,
+       c.cart_book_id,
+       c.cart_book_num,
+       b.book_price_current,
+       b.book_name,
+       b.book_pic_big
+       FROM cart as c LEFT JOIN book as b
+       ON c.cart_book_id = b.book_id
+       WHERE c.cart_uid = #{userId};
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from cart
+    where cart_id = #{cartId,jdbcType=CHAR}
+  </delete>
+    <!--删除购物车条目-->
+    <delete id="deleteByUidAndBid">
+        DELETE FROM `cart` WHERE cart_uid = #{userId} AND cart_book_id = #{bookId}
+    </delete>
+    <insert id="insert" parameterType="com.onlineshop.entity.Cart">
+    insert into cart (cart_id, cart_uid, cart_book_id, 
+      cart_book_num)
+    values (#{cartId,jdbcType=CHAR}, #{cartUid,jdbcType=CHAR}, #{cartBookId,jdbcType=INTEGER}, 
+      #{cartBookNum,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.onlineshop.entity.Cart">
+        insert into cart
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="cartId != null">
+                cart_id,
+            </if>
+            <if test="cartUid != null">
+                cart_uid,
+            </if>
+            <if test="cartBookId != null">
+                cart_book_id,
+            </if>
+            <if test="cartBookNum != null">
+                cart_book_num,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="cartId != null">
+                #{cartId,jdbcType=CHAR},
+            </if>
+            <if test="cartUid != null">
+                #{cartUid,jdbcType=CHAR},
+            </if>
+            <if test="cartBookId != null">
+                #{cartBookId,jdbcType=INTEGER},
+            </if>
+            <if test="cartBookNum != null">
+                #{cartBookNum,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.onlineshop.entity.Cart">
+        update cart
+        <set>
+            <if test="cartUid != null">
+                cart_uid = #{cartUid,jdbcType=CHAR},
+            </if>
+            <if test="cartBookId != null">
+                cart_book_id = #{cartBookId,jdbcType=INTEGER},
+            </if>
+            <if test="cartBookNum != null">
+                cart_book_num = #{cartBookNum,jdbcType=INTEGER},
+            </if>
+        </set>
+        where cart_id = #{cartId,jdbcType=CHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.onlineshop.entity.Cart">
+    update cart
+    set cart_uid = #{cartUid,jdbcType=CHAR},
+      cart_book_id = #{cartBookId,jdbcType=INTEGER},
+      cart_book_num = #{cartBookNum,jdbcType=INTEGER}
+    where cart_id = #{cartId,jdbcType=CHAR}
+  </update>
+</mapper>

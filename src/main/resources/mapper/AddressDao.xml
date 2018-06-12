@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.onlineshop.dao.AddressDao" >
+  <resultMap id="BaseResultMap" type="com.onlineshop.entity.Address" >
+    <id column="address_id" property="addressId" jdbcType="CHAR" />
+    <result column="address_uid" property="addressUid" jdbcType="CHAR" />
+    <result column="address_status" property="addressStatus" jdbcType="INTEGER" />
+    <result column="address_receiver" property="addressReceiver" jdbcType="VARCHAR" />
+    <result column="address_receiver_phone" property="addressReceiverPhone" jdbcType="VARCHAR" />
+    <result column="address_detail" property="addressDetail" jdbcType="VARCHAR" />
+    <result column="address_province" property="addressProvince" jdbcType="VARCHAR" />
+    <result column="address_city" property="addressCity" jdbcType="VARCHAR" />
+    <result column="address_area" property="addressArea" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    address_id, address_uid, address_status, address_receiver, address_receiver_phone, 
+    address_detail, address_province, address_city, address_area
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from address
+    where address_id = #{addressId,jdbcType=CHAR}
+  </select>
+  <!--通过用户id查询地址-->
+  <select id="selectByUid" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM address
+    WHERE address_uid = #{userId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from address
+    where address_id = #{addressId,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.onlineshop.entity.Address" >
+    insert into address (address_id, address_uid, address_status, 
+      address_receiver, address_receiver_phone, 
+      address_detail, address_province, address_city, 
+      address_area)
+    values (#{addressId,jdbcType=CHAR}, #{addressUid,jdbcType=CHAR}, #{addressStatus,jdbcType=INTEGER}, 
+      #{addressReceiver,jdbcType=VARCHAR}, #{addressReceiverPhone,jdbcType=VARCHAR}, 
+      #{addressDetail,jdbcType=VARCHAR}, #{addressProvince,jdbcType=VARCHAR}, #{addressCity,jdbcType=VARCHAR}, 
+      #{addressArea,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.onlineshop.entity.Address" >
+    insert into address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="addressId != null" >
+        address_id,
+      </if>
+      <if test="addressUid != null" >
+        address_uid,
+      </if>
+      <if test="addressStatus != null" >
+        address_status,
+      </if>
+      <if test="addressReceiver != null" >
+        address_receiver,
+      </if>
+      <if test="addressReceiverPhone != null" >
+        address_receiver_phone,
+      </if>
+      <if test="addressDetail != null" >
+        address_detail,
+      </if>
+      <if test="addressProvince != null" >
+        address_province,
+      </if>
+      <if test="addressCity != null" >
+        address_city,
+      </if>
+      <if test="addressArea != null" >
+        address_area,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="addressId != null" >
+        #{addressId,jdbcType=CHAR},
+      </if>
+      <if test="addressUid != null" >
+        #{addressUid,jdbcType=CHAR},
+      </if>
+      <if test="addressStatus != null" >
+        #{addressStatus,jdbcType=INTEGER},
+      </if>
+      <if test="addressReceiver != null" >
+        #{addressReceiver,jdbcType=VARCHAR},
+      </if>
+      <if test="addressReceiverPhone != null" >
+        #{addressReceiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDetail != null" >
+        #{addressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="addressProvince != null" >
+        #{addressProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="addressCity != null" >
+        #{addressCity,jdbcType=VARCHAR},
+      </if>
+      <if test="addressArea != null" >
+        #{addressArea,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.onlineshop.entity.Address" >
+    update address
+    <set >
+      <if test="addressUid != null" >
+        address_uid = #{addressUid,jdbcType=CHAR},
+      </if>
+      <if test="addressStatus != null" >
+        address_status = #{addressStatus,jdbcType=INTEGER},
+      </if>
+      <if test="addressReceiver != null" >
+        address_receiver = #{addressReceiver,jdbcType=VARCHAR},
+      </if>
+      <if test="addressReceiverPhone != null" >
+        address_receiver_phone = #{addressReceiverPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDetail != null" >
+        address_detail = #{addressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="addressProvince != null" >
+        address_province = #{addressProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="addressCity != null" >
+        address_city = #{addressCity,jdbcType=VARCHAR},
+      </if>
+      <if test="addressArea != null" >
+        address_area = #{addressArea,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where address_id = #{addressId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.onlineshop.entity.Address" >
+    update address
+    set address_uid = #{addressUid,jdbcType=CHAR},
+      address_status = #{addressStatus,jdbcType=INTEGER},
+      address_receiver = #{addressReceiver,jdbcType=VARCHAR},
+      address_receiver_phone = #{addressReceiverPhone,jdbcType=VARCHAR},
+      address_detail = #{addressDetail,jdbcType=VARCHAR},
+      address_province = #{addressProvince,jdbcType=VARCHAR},
+      address_city = #{addressCity,jdbcType=VARCHAR},
+      address_area = #{addressArea,jdbcType=VARCHAR}
+    where address_id = #{addressId,jdbcType=CHAR}
+  </update>
+</mapper>
