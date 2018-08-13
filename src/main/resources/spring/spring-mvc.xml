@@ -12,8 +12,8 @@
     <!--启动注解驱动的Spring MVC功能,注册请求url和注解POJO类方法的映射-->
     <mvc:annotation-driven/>
     <!--spring扫描web包下所有的类,让标注Spring注解的类生效.-->
-    <!--<context:component-scan base-package="com.onlineshop.web"/>-->
-    <context:component-scan base-package="com.onlineshop.web">
+    <!--<context:component-scan base-package="com.programb"/>-->
+    <context:component-scan base-package="com.project.web">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
     <!--视图名称解析器,将视图逻辑名解析为/WEB-INF/views/<viewName>.jsp的视图对象-->
@@ -38,11 +38,11 @@
             <bean class="com.thoughtworks.xstream.io.xml.StaxDriver"/>
         </property>
 
-        <property name="annotatedClasses">
-            <list>
-                <value>com.onlineshop.entity.IsEmailRegistered</value>
-            </list>
-        </property>
+        <!--<property name="annotatedClasses">-->
+            <!--<list>-->
+                <!--<value>com.programtity.IsEmailRegistered</value>-->
+            <!--</list>-->
+        <!--</property>-->
         <!--&lt;!&ndash; 处理请求返回json字符串的乱码问题 &ndash;&gt;-->
         <!--<mvc:annotation-driven>-->
             <!--<mvc:message-converters>-->
