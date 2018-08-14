@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.StuTestDao" >
+  <resultMap id="BaseResultMap" type="com.project.entity.StuTest" >
+    <id column="Stu_Test_Id" property="stuTestId" jdbcType="VARCHAR" />
+    <result column="Stu_Id" property="stuId" jdbcType="VARCHAR" />
+    <result column="Test_Id" property="testId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Stu_Test_Id, Stu_Id, Test_Id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_stu_test
+    where Stu_Test_Id = #{stuTestId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_stu_test
+    where Stu_Test_Id = #{stuTestId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.entity.StuTest" >
+    insert into tbl_stu_test (Stu_Test_Id, Stu_Id, Test_Id
+      )
+    values (#{stuTestId,jdbcType=VARCHAR}, #{stuId,jdbcType=VARCHAR}, #{testId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.entity.StuTest" >
+    insert into tbl_stu_test
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stuTestId != null" >
+        Stu_Test_Id,
+      </if>
+      <if test="stuId != null" >
+        Stu_Id,
+      </if>
+      <if test="testId != null" >
+        Test_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stuTestId != null" >
+        #{stuTestId,jdbcType=VARCHAR},
+      </if>
+      <if test="stuId != null" >
+        #{stuId,jdbcType=VARCHAR},
+      </if>
+      <if test="testId != null" >
+        #{testId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.entity.StuTest" >
+    update tbl_stu_test
+    <set >
+      <if test="stuId != null" >
+        Stu_Id = #{stuId,jdbcType=VARCHAR},
+      </if>
+      <if test="testId != null" >
+        Test_Id = #{testId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Stu_Test_Id = #{stuTestId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.entity.StuTest" >
+    update tbl_stu_test
+    set Stu_Id = #{stuId,jdbcType=VARCHAR},
+      Test_Id = #{testId,jdbcType=VARCHAR}
+    where Stu_Test_Id = #{stuTestId,jdbcType=VARCHAR}
+  </update>
+</mapper>

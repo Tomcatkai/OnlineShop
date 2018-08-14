@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.StudentDao" >
+  <resultMap id="BaseResultMap" type="com.project.entity.Student" >
+    <id column="Stu_Id" property="stuId" jdbcType="VARCHAR" />
+    <result column="Stu_Name" property="stuName" jdbcType="VARCHAR" />
+    <result column="Stu_No" property="stuNo" jdbcType="VARCHAR" />
+    <result column="Stu_Sex" property="stuSex" jdbcType="CHAR" />
+    <result column="Stu_Class_Id" property="stuClassId" jdbcType="VARCHAR" />
+    <result column="Stu_Notice" property="stuNotice" jdbcType="VARCHAR" />
+    <result column="Stu_Role" property="stuRole" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Stu_Id, Stu_Name, Stu_No, Stu_Sex, Stu_Class_Id, Stu_Notice, Stu_Role
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_student
+    where Stu_Id = #{stuId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_student
+    where Stu_Id = #{stuId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.entity.Student" >
+    insert into tbl_student (Stu_Id, Stu_Name, Stu_No, 
+      Stu_Sex, Stu_Class_Id, Stu_Notice, 
+      Stu_Role)
+    values (#{stuId,jdbcType=VARCHAR}, #{stuName,jdbcType=VARCHAR}, #{stuNo,jdbcType=VARCHAR}, 
+      #{stuSex,jdbcType=CHAR}, #{stuClassId,jdbcType=VARCHAR}, #{stuNotice,jdbcType=VARCHAR}, 
+      #{stuRole,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.entity.Student" >
+    insert into tbl_student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stuId != null" >
+        Stu_Id,
+      </if>
+      <if test="stuName != null" >
+        Stu_Name,
+      </if>
+      <if test="stuNo != null" >
+        Stu_No,
+      </if>
+      <if test="stuSex != null" >
+        Stu_Sex,
+      </if>
+      <if test="stuClassId != null" >
+        Stu_Class_Id,
+      </if>
+      <if test="stuNotice != null" >
+        Stu_Notice,
+      </if>
+      <if test="stuRole != null" >
+        Stu_Role,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stuId != null" >
+        #{stuId,jdbcType=VARCHAR},
+      </if>
+      <if test="stuName != null" >
+        #{stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="stuNo != null" >
+        #{stuNo,jdbcType=VARCHAR},
+      </if>
+      <if test="stuSex != null" >
+        #{stuSex,jdbcType=CHAR},
+      </if>
+      <if test="stuClassId != null" >
+        #{stuClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="stuNotice != null" >
+        #{stuNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="stuRole != null" >
+        #{stuRole,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.entity.Student" >
+    update tbl_student
+    <set >
+      <if test="stuName != null" >
+        Stu_Name = #{stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="stuNo != null" >
+        Stu_No = #{stuNo,jdbcType=VARCHAR},
+      </if>
+      <if test="stuSex != null" >
+        Stu_Sex = #{stuSex,jdbcType=CHAR},
+      </if>
+      <if test="stuClassId != null" >
+        Stu_Class_Id = #{stuClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="stuNotice != null" >
+        Stu_Notice = #{stuNotice,jdbcType=VARCHAR},
+      </if>
+      <if test="stuRole != null" >
+        Stu_Role = #{stuRole,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Stu_Id = #{stuId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.entity.Student" >
+    update tbl_student
+    set Stu_Name = #{stuName,jdbcType=VARCHAR},
+      Stu_No = #{stuNo,jdbcType=VARCHAR},
+      Stu_Sex = #{stuSex,jdbcType=CHAR},
+      Stu_Class_Id = #{stuClassId,jdbcType=VARCHAR},
+      Stu_Notice = #{stuNotice,jdbcType=VARCHAR},
+      Stu_Role = #{stuRole,jdbcType=VARCHAR}
+    where Stu_Id = #{stuId,jdbcType=VARCHAR}
+  </update>
+</mapper>

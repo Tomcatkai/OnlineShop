@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.OrganizationDao" >
+  <resultMap id="BaseResultMap" type="com.project.entity.Organization" >
+    <id column="Org_Id" property="orgId" jdbcType="VARCHAR" />
+    <result column="Org_Name" property="orgName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Org_Id, Org_Name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_org
+    where Org_Id = #{orgId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_org
+    where Org_Id = #{orgId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.entity.Organization" >
+    insert into tbl_org (Org_Id, Org_Name)
+    values (#{orgId,jdbcType=VARCHAR}, #{orgName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.entity.Organization" >
+    insert into tbl_org
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orgId != null" >
+        Org_Id,
+      </if>
+      <if test="orgName != null" >
+        Org_Name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orgId != null" >
+        #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.entity.Organization" >
+    update tbl_org
+    <set >
+      <if test="orgName != null" >
+        Org_Name = #{orgName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Org_Id = #{orgId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.entity.Organization" >
+    update tbl_org
+    set Org_Name = #{orgName,jdbcType=VARCHAR}
+    where Org_Id = #{orgId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.PracticeDao" >
+  <resultMap id="BaseResultMap" type="com.project.entity.Practice" >
+    <id column="Practice_Id" property="practiceId" jdbcType="VARCHAR" />
+    <result column="Practice_Name" property="practiceName" jdbcType="VARCHAR" />
+    <result column="Practice_Paper_Id" property="practicePaperId" jdbcType="VARCHAR" />
+    <result column="Practice_Status" property="practiceStatus" jdbcType="VARCHAR" />
+    <result column="Practice_CreateTime" property="practiceCreatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Practice_Id, Practice_Name, Practice_Paper_Id, Practice_Status, Practice_CreateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_practice
+    where Practice_Id = #{practiceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_practice
+    where Practice_Id = #{practiceId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.entity.Practice" >
+    insert into tbl_practice (Practice_Id, Practice_Name, Practice_Paper_Id, 
+      Practice_Status, Practice_CreateTime)
+    values (#{practiceId,jdbcType=VARCHAR}, #{practiceName,jdbcType=VARCHAR}, #{practicePaperId,jdbcType=VARCHAR}, 
+      #{practiceStatus,jdbcType=VARCHAR}, #{practiceCreatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.entity.Practice" >
+    insert into tbl_practice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="practiceId != null" >
+        Practice_Id,
+      </if>
+      <if test="practiceName != null" >
+        Practice_Name,
+      </if>
+      <if test="practicePaperId != null" >
+        Practice_Paper_Id,
+      </if>
+      <if test="practiceStatus != null" >
+        Practice_Status,
+      </if>
+      <if test="practiceCreatetime != null" >
+        Practice_CreateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="practiceId != null" >
+        #{practiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="practiceName != null" >
+        #{practiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="practicePaperId != null" >
+        #{practicePaperId,jdbcType=VARCHAR},
+      </if>
+      <if test="practiceStatus != null" >
+        #{practiceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="practiceCreatetime != null" >
+        #{practiceCreatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.entity.Practice" >
+    update tbl_practice
+    <set >
+      <if test="practiceName != null" >
+        Practice_Name = #{practiceName,jdbcType=VARCHAR},
+      </if>
+      <if test="practicePaperId != null" >
+        Practice_Paper_Id = #{practicePaperId,jdbcType=VARCHAR},
+      </if>
+      <if test="practiceStatus != null" >
+        Practice_Status = #{practiceStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="practiceCreatetime != null" >
+        Practice_CreateTime = #{practiceCreatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where Practice_Id = #{practiceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.entity.Practice" >
+    update tbl_practice
+    set Practice_Name = #{practiceName,jdbcType=VARCHAR},
+      Practice_Paper_Id = #{practicePaperId,jdbcType=VARCHAR},
+      Practice_Status = #{practiceStatus,jdbcType=VARCHAR},
+      Practice_CreateTime = #{practiceCreatetime,jdbcType=TIMESTAMP}
+    where Practice_Id = #{practiceId,jdbcType=VARCHAR}
+  </update>
+</mapper>

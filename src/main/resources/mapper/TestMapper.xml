@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.TestDao" >
+  <resultMap id="BaseResultMap" type="com.project.entity.Test" >
+    <id column="Test_Id" property="testId" jdbcType="VARCHAR" />
+    <result column="Test_Name" property="testName" jdbcType="VARCHAR" />
+    <result column="Test_Paper_id" property="testPaperId" jdbcType="VARCHAR" />
+    <result column="Test_Status" property="testStatus" jdbcType="VARCHAR" />
+    <result column="Test_CreateTime" property="testCreatetime" jdbcType="TIMESTAMP" />
+    <result column="Test_StartTime" property="testStarttime" jdbcType="TIMESTAMP" />
+    <result column="Test_OverTime" property="testOvertime" jdbcType="TIMESTAMP" />
+    <result column="Test_Teacher_Id" property="testTeacherId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Test_Id, Test_Name, Test_Paper_id, Test_Status, Test_CreateTime, Test_StartTime, 
+    Test_OverTime, Test_Teacher_Id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_test
+    where Test_Id = #{testId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_test
+    where Test_Id = #{testId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.entity.Test" >
+    insert into tbl_test (Test_Id, Test_Name, Test_Paper_id, 
+      Test_Status, Test_CreateTime, Test_StartTime, 
+      Test_OverTime, Test_Teacher_Id)
+    values (#{testId,jdbcType=VARCHAR}, #{testName,jdbcType=VARCHAR}, #{testPaperId,jdbcType=VARCHAR}, 
+      #{testStatus,jdbcType=VARCHAR}, #{testCreatetime,jdbcType=TIMESTAMP}, #{testStarttime,jdbcType=TIMESTAMP}, 
+      #{testOvertime,jdbcType=TIMESTAMP}, #{testTeacherId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.entity.Test" >
+    insert into tbl_test
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="testId != null" >
+        Test_Id,
+      </if>
+      <if test="testName != null" >
+        Test_Name,
+      </if>
+      <if test="testPaperId != null" >
+        Test_Paper_id,
+      </if>
+      <if test="testStatus != null" >
+        Test_Status,
+      </if>
+      <if test="testCreatetime != null" >
+        Test_CreateTime,
+      </if>
+      <if test="testStarttime != null" >
+        Test_StartTime,
+      </if>
+      <if test="testOvertime != null" >
+        Test_OverTime,
+      </if>
+      <if test="testTeacherId != null" >
+        Test_Teacher_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="testId != null" >
+        #{testId,jdbcType=VARCHAR},
+      </if>
+      <if test="testName != null" >
+        #{testName,jdbcType=VARCHAR},
+      </if>
+      <if test="testPaperId != null" >
+        #{testPaperId,jdbcType=VARCHAR},
+      </if>
+      <if test="testStatus != null" >
+        #{testStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="testCreatetime != null" >
+        #{testCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testStarttime != null" >
+        #{testStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testOvertime != null" >
+        #{testOvertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testTeacherId != null" >
+        #{testTeacherId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.entity.Test" >
+    update tbl_test
+    <set >
+      <if test="testName != null" >
+        Test_Name = #{testName,jdbcType=VARCHAR},
+      </if>
+      <if test="testPaperId != null" >
+        Test_Paper_id = #{testPaperId,jdbcType=VARCHAR},
+      </if>
+      <if test="testStatus != null" >
+        Test_Status = #{testStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="testCreatetime != null" >
+        Test_CreateTime = #{testCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testStarttime != null" >
+        Test_StartTime = #{testStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testOvertime != null" >
+        Test_OverTime = #{testOvertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="testTeacherId != null" >
+        Test_Teacher_Id = #{testTeacherId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Test_Id = #{testId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.entity.Test" >
+    update tbl_test
+    set Test_Name = #{testName,jdbcType=VARCHAR},
+      Test_Paper_id = #{testPaperId,jdbcType=VARCHAR},
+      Test_Status = #{testStatus,jdbcType=VARCHAR},
+      Test_CreateTime = #{testCreatetime,jdbcType=TIMESTAMP},
+      Test_StartTime = #{testStarttime,jdbcType=TIMESTAMP},
+      Test_OverTime = #{testOvertime,jdbcType=TIMESTAMP},
+      Test_Teacher_Id = #{testTeacherId,jdbcType=VARCHAR}
+    where Test_Id = #{testId,jdbcType=VARCHAR}
+  </update>
+</mapper>

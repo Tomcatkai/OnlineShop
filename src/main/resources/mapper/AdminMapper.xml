@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.AdminDao" >
+  <resultMap id="BaseResultMap" type="com.project.entity.Admin" >
+    <id column="Admin_Id" property="adminId" jdbcType="VARCHAR" />
+    <result column="Admin_Name" property="adminName" jdbcType="VARCHAR" />
+    <result column="Admin_Pwd" property="adminPwd" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Admin_Id, Admin_Name, Admin_Pwd
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_admin
+    where Admin_Id = #{adminId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_admin
+    where Admin_Id = #{adminId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.entity.Admin" >
+    insert into tbl_admin (Admin_Id, Admin_Name, Admin_Pwd
+      )
+    values (#{adminId,jdbcType=VARCHAR}, #{adminName,jdbcType=VARCHAR}, #{adminPwd,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.entity.Admin" >
+    insert into tbl_admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        Admin_Id,
+      </if>
+      <if test="adminName != null" >
+        Admin_Name,
+      </if>
+      <if test="adminPwd != null" >
+        Admin_Pwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        #{adminId,jdbcType=VARCHAR},
+      </if>
+      <if test="adminName != null" >
+        #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPwd != null" >
+        #{adminPwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.entity.Admin" >
+    update tbl_admin
+    <set >
+      <if test="adminName != null" >
+        Admin_Name = #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminPwd != null" >
+        Admin_Pwd = #{adminPwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Admin_Id = #{adminId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.entity.Admin" >
+    update tbl_admin
+    set Admin_Name = #{adminName,jdbcType=VARCHAR},
+      Admin_Pwd = #{adminPwd,jdbcType=VARCHAR}
+    where Admin_Id = #{adminId,jdbcType=VARCHAR}
+  </update>
+</mapper>

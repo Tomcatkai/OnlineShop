@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.CarDao" >
+  <resultMap id="BaseResultMap" type="com.project.entity.Car" >
+    <id column="Car_Id" property="carId" jdbcType="VARCHAR" />
+    <result column="Car_Type" property="carType" jdbcType="VARCHAR" />
+    <result column="Car_Cargo_Type" property="carCargoType" jdbcType="VARCHAR" />
+    <result column="Car_Name" property="carName" jdbcType="VARCHAR" />
+    <result column="Car_Checkpoint" property="carCheckpoint" jdbcType="VARCHAR" />
+    <result column="Car_Checkthings" property="carCheckthings" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Car_Id, Car_Type, Car_Cargo_Type, Car_Name, Car_Checkpoint, Car_Checkthings
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_car
+    where Car_Id = #{carId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_car
+    where Car_Id = #{carId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.entity.Car" >
+    insert into tbl_car (Car_Id, Car_Type, Car_Cargo_Type, 
+      Car_Name, Car_Checkpoint, Car_Checkthings
+      )
+    values (#{carId,jdbcType=VARCHAR}, #{carType,jdbcType=VARCHAR}, #{carCargoType,jdbcType=VARCHAR}, 
+      #{carName,jdbcType=VARCHAR}, #{carCheckpoint,jdbcType=VARCHAR}, #{carCheckthings,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.entity.Car" >
+    insert into tbl_car
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="carId != null" >
+        Car_Id,
+      </if>
+      <if test="carType != null" >
+        Car_Type,
+      </if>
+      <if test="carCargoType != null" >
+        Car_Cargo_Type,
+      </if>
+      <if test="carName != null" >
+        Car_Name,
+      </if>
+      <if test="carCheckpoint != null" >
+        Car_Checkpoint,
+      </if>
+      <if test="carCheckthings != null" >
+        Car_Checkthings,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="carId != null" >
+        #{carId,jdbcType=VARCHAR},
+      </if>
+      <if test="carType != null" >
+        #{carType,jdbcType=VARCHAR},
+      </if>
+      <if test="carCargoType != null" >
+        #{carCargoType,jdbcType=VARCHAR},
+      </if>
+      <if test="carName != null" >
+        #{carName,jdbcType=VARCHAR},
+      </if>
+      <if test="carCheckpoint != null" >
+        #{carCheckpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="carCheckthings != null" >
+        #{carCheckthings,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.entity.Car" >
+    update tbl_car
+    <set >
+      <if test="carType != null" >
+        Car_Type = #{carType,jdbcType=VARCHAR},
+      </if>
+      <if test="carCargoType != null" >
+        Car_Cargo_Type = #{carCargoType,jdbcType=VARCHAR},
+      </if>
+      <if test="carName != null" >
+        Car_Name = #{carName,jdbcType=VARCHAR},
+      </if>
+      <if test="carCheckpoint != null" >
+        Car_Checkpoint = #{carCheckpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="carCheckthings != null" >
+        Car_Checkthings = #{carCheckthings,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Car_Id = #{carId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.entity.Car" >
+    update tbl_car
+    set Car_Type = #{carType,jdbcType=VARCHAR},
+      Car_Cargo_Type = #{carCargoType,jdbcType=VARCHAR},
+      Car_Name = #{carName,jdbcType=VARCHAR},
+      Car_Checkpoint = #{carCheckpoint,jdbcType=VARCHAR},
+      Car_Checkthings = #{carCheckthings,jdbcType=VARCHAR}
+    where Car_Id = #{carId,jdbcType=VARCHAR}
+  </update>
+</mapper>

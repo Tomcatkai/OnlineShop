@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.StuPracticeDao" >
+  <resultMap id="BaseResultMap" type="com.project.entity.StuPractice" >
+    <id column="Stu_Practice_Id" property="stuPracticeId" jdbcType="VARCHAR" />
+    <result column="Stu_Id" property="stuId" jdbcType="VARCHAR" />
+    <result column="Practice_Id" property="practiceId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Stu_Practice_Id, Stu_Id, Practice_Id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_stu_practice
+    where Stu_Practice_Id = #{stuPracticeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_stu_practice
+    where Stu_Practice_Id = #{stuPracticeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.entity.StuPractice" >
+    insert into tbl_stu_practice (Stu_Practice_Id, Stu_Id, Practice_Id
+      )
+    values (#{stuPracticeId,jdbcType=VARCHAR}, #{stuId,jdbcType=VARCHAR}, #{practiceId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.entity.StuPractice" >
+    insert into tbl_stu_practice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stuPracticeId != null" >
+        Stu_Practice_Id,
+      </if>
+      <if test="stuId != null" >
+        Stu_Id,
+      </if>
+      <if test="practiceId != null" >
+        Practice_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stuPracticeId != null" >
+        #{stuPracticeId,jdbcType=VARCHAR},
+      </if>
+      <if test="stuId != null" >
+        #{stuId,jdbcType=VARCHAR},
+      </if>
+      <if test="practiceId != null" >
+        #{practiceId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.entity.StuPractice" >
+    update tbl_stu_practice
+    <set >
+      <if test="stuId != null" >
+        Stu_Id = #{stuId,jdbcType=VARCHAR},
+      </if>
+      <if test="practiceId != null" >
+        Practice_Id = #{practiceId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Stu_Practice_Id = #{stuPracticeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.entity.StuPractice" >
+    update tbl_stu_practice
+    set Stu_Id = #{stuId,jdbcType=VARCHAR},
+      Practice_Id = #{practiceId,jdbcType=VARCHAR}
+    where Stu_Practice_Id = #{stuPracticeId,jdbcType=VARCHAR}
+  </update>
+</mapper>

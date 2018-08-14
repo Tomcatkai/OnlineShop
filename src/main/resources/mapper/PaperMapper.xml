@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.PaperDao" >
+  <resultMap id="BaseResultMap" type="com.project.entity.Paper" >
+    <id column="Paper_Id" property="paperId" jdbcType="VARCHAR" />
+    <result column="Paper_Name" property="paperName" jdbcType="VARCHAR" />
+    <result column="Paper_Is_Problem" property="paperIsProblem" jdbcType="VARCHAR" />
+    <result column="Paper_CarType" property="paperCartype" jdbcType="VARCHAR" />
+    <result column="Paper_Fix_Status" property="paperFixStatus" jdbcType="VARCHAR" />
+    <result column="Paper_Teacher_Id" property="paperTeacherId" jdbcType="VARCHAR" />
+    <result column="Paper_Create_Time" property="paperCreateTime" jdbcType="TIMESTAMP" />
+    <result column="Paper_Using_Count" property="paperUsingCount" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Paper_Id, Paper_Name, Paper_Is_Problem, Paper_CarType, Paper_Fix_Status, Paper_Teacher_Id, 
+    Paper_Create_Time, Paper_Using_Count
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_paper
+    where Paper_Id = #{paperId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_paper
+    where Paper_Id = #{paperId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.entity.Paper" >
+    insert into tbl_paper (Paper_Id, Paper_Name, Paper_Is_Problem, 
+      Paper_CarType, Paper_Fix_Status, Paper_Teacher_Id, 
+      Paper_Create_Time, Paper_Using_Count)
+    values (#{paperId,jdbcType=VARCHAR}, #{paperName,jdbcType=VARCHAR}, #{paperIsProblem,jdbcType=VARCHAR}, 
+      #{paperCartype,jdbcType=VARCHAR}, #{paperFixStatus,jdbcType=VARCHAR}, #{paperTeacherId,jdbcType=VARCHAR}, 
+      #{paperCreateTime,jdbcType=TIMESTAMP}, #{paperUsingCount,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.entity.Paper" >
+    insert into tbl_paper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="paperId != null" >
+        Paper_Id,
+      </if>
+      <if test="paperName != null" >
+        Paper_Name,
+      </if>
+      <if test="paperIsProblem != null" >
+        Paper_Is_Problem,
+      </if>
+      <if test="paperCartype != null" >
+        Paper_CarType,
+      </if>
+      <if test="paperFixStatus != null" >
+        Paper_Fix_Status,
+      </if>
+      <if test="paperTeacherId != null" >
+        Paper_Teacher_Id,
+      </if>
+      <if test="paperCreateTime != null" >
+        Paper_Create_Time,
+      </if>
+      <if test="paperUsingCount != null" >
+        Paper_Using_Count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="paperId != null" >
+        #{paperId,jdbcType=VARCHAR},
+      </if>
+      <if test="paperName != null" >
+        #{paperName,jdbcType=VARCHAR},
+      </if>
+      <if test="paperIsProblem != null" >
+        #{paperIsProblem,jdbcType=VARCHAR},
+      </if>
+      <if test="paperCartype != null" >
+        #{paperCartype,jdbcType=VARCHAR},
+      </if>
+      <if test="paperFixStatus != null" >
+        #{paperFixStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="paperTeacherId != null" >
+        #{paperTeacherId,jdbcType=VARCHAR},
+      </if>
+      <if test="paperCreateTime != null" >
+        #{paperCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paperUsingCount != null" >
+        #{paperUsingCount,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.entity.Paper" >
+    update tbl_paper
+    <set >
+      <if test="paperName != null" >
+        Paper_Name = #{paperName,jdbcType=VARCHAR},
+      </if>
+      <if test="paperIsProblem != null" >
+        Paper_Is_Problem = #{paperIsProblem,jdbcType=VARCHAR},
+      </if>
+      <if test="paperCartype != null" >
+        Paper_CarType = #{paperCartype,jdbcType=VARCHAR},
+      </if>
+      <if test="paperFixStatus != null" >
+        Paper_Fix_Status = #{paperFixStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="paperTeacherId != null" >
+        Paper_Teacher_Id = #{paperTeacherId,jdbcType=VARCHAR},
+      </if>
+      <if test="paperCreateTime != null" >
+        Paper_Create_Time = #{paperCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paperUsingCount != null" >
+        Paper_Using_Count = #{paperUsingCount,jdbcType=BIGINT},
+      </if>
+    </set>
+    where Paper_Id = #{paperId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.entity.Paper" >
+    update tbl_paper
+    set Paper_Name = #{paperName,jdbcType=VARCHAR},
+      Paper_Is_Problem = #{paperIsProblem,jdbcType=VARCHAR},
+      Paper_CarType = #{paperCartype,jdbcType=VARCHAR},
+      Paper_Fix_Status = #{paperFixStatus,jdbcType=VARCHAR},
+      Paper_Teacher_Id = #{paperTeacherId,jdbcType=VARCHAR},
+      Paper_Create_Time = #{paperCreateTime,jdbcType=TIMESTAMP},
+      Paper_Using_Count = #{paperUsingCount,jdbcType=BIGINT}
+    where Paper_Id = #{paperId,jdbcType=VARCHAR}
+  </update>
+</mapper>

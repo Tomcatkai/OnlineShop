@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.TeacherClassDao" >
+  <resultMap id="BaseResultMap" type="com.project.entity.TeacherClass" >
+    <id column="Teacher_Class_Id" property="teacherClassId" jdbcType="VARCHAR" />
+    <result column="Teacher_Id" property="teacherId" jdbcType="VARCHAR" />
+    <result column="Class_Id" property="classId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Teacher_Class_Id, Teacher_Id, Class_Id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_teacher_class
+    where Teacher_Class_Id = #{teacherClassId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_teacher_class
+    where Teacher_Class_Id = #{teacherClassId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.entity.TeacherClass" >
+    insert into tbl_teacher_class (Teacher_Class_Id, Teacher_Id, Class_Id
+      )
+    values (#{teacherClassId,jdbcType=VARCHAR}, #{teacherId,jdbcType=VARCHAR}, #{classId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.entity.TeacherClass" >
+    insert into tbl_teacher_class
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="teacherClassId != null" >
+        Teacher_Class_Id,
+      </if>
+      <if test="teacherId != null" >
+        Teacher_Id,
+      </if>
+      <if test="classId != null" >
+        Class_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="teacherClassId != null" >
+        #{teacherClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=VARCHAR},
+      </if>
+      <if test="classId != null" >
+        #{classId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.entity.TeacherClass" >
+    update tbl_teacher_class
+    <set >
+      <if test="teacherId != null" >
+        Teacher_Id = #{teacherId,jdbcType=VARCHAR},
+      </if>
+      <if test="classId != null" >
+        Class_Id = #{classId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Teacher_Class_Id = #{teacherClassId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.entity.TeacherClass" >
+    update tbl_teacher_class
+    set Teacher_Id = #{teacherId,jdbcType=VARCHAR},
+      Class_Id = #{classId,jdbcType=VARCHAR}
+    where Teacher_Class_Id = #{teacherClassId,jdbcType=VARCHAR}
+  </update>
+</mapper>

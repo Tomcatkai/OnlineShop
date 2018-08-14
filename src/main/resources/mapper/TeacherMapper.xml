@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.TeacherDao" >
+  <resultMap id="BaseResultMap" type="com.project.entity.Teacher" >
+    <id column="Teacher_Id" property="teacherId" jdbcType="VARCHAR" />
+    <result column="Teacher_Name" property="teacherName" jdbcType="VARCHAR" />
+    <result column="Teacher_Sex" property="teacherSex" jdbcType="VARCHAR" />
+    <result column="Teacher_Login_Name" property="teacherLoginName" jdbcType="VARCHAR" />
+    <result column="Teacher_Class_Id" property="teacherClassId" jdbcType="VARCHAR" />
+    <result column="Teacher_Org_Id" property="teacherOrgId" jdbcType="VARCHAR" />
+    <result column="Teacher_Login_Pwd" property="teacherLoginPwd" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Teacher_Id, Teacher_Name, Teacher_Sex, Teacher_Login_Name, Teacher_Class_Id, Teacher_Org_Id, 
+    Teacher_Login_Pwd
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_teacher
+    where Teacher_Id = #{teacherId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_teacher
+    where Teacher_Id = #{teacherId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.entity.Teacher" >
+    insert into tbl_teacher (Teacher_Id, Teacher_Name, Teacher_Sex, 
+      Teacher_Login_Name, Teacher_Class_Id, Teacher_Org_Id, 
+      Teacher_Login_Pwd)
+    values (#{teacherId,jdbcType=VARCHAR}, #{teacherName,jdbcType=VARCHAR}, #{teacherSex,jdbcType=VARCHAR}, 
+      #{teacherLoginName,jdbcType=VARCHAR}, #{teacherClassId,jdbcType=VARCHAR}, #{teacherOrgId,jdbcType=VARCHAR}, 
+      #{teacherLoginPwd,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.entity.Teacher" >
+    insert into tbl_teacher
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="teacherId != null" >
+        Teacher_Id,
+      </if>
+      <if test="teacherName != null" >
+        Teacher_Name,
+      </if>
+      <if test="teacherSex != null" >
+        Teacher_Sex,
+      </if>
+      <if test="teacherLoginName != null" >
+        Teacher_Login_Name,
+      </if>
+      <if test="teacherClassId != null" >
+        Teacher_Class_Id,
+      </if>
+      <if test="teacherOrgId != null" >
+        Teacher_Org_Id,
+      </if>
+      <if test="teacherLoginPwd != null" >
+        Teacher_Login_Pwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherName != null" >
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherSex != null" >
+        #{teacherSex,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherLoginName != null" >
+        #{teacherLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherClassId != null" >
+        #{teacherClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherOrgId != null" >
+        #{teacherOrgId,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherLoginPwd != null" >
+        #{teacherLoginPwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.entity.Teacher" >
+    update tbl_teacher
+    <set >
+      <if test="teacherName != null" >
+        Teacher_Name = #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherSex != null" >
+        Teacher_Sex = #{teacherSex,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherLoginName != null" >
+        Teacher_Login_Name = #{teacherLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherClassId != null" >
+        Teacher_Class_Id = #{teacherClassId,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherOrgId != null" >
+        Teacher_Org_Id = #{teacherOrgId,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherLoginPwd != null" >
+        Teacher_Login_Pwd = #{teacherLoginPwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Teacher_Id = #{teacherId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.entity.Teacher" >
+    update tbl_teacher
+    set Teacher_Name = #{teacherName,jdbcType=VARCHAR},
+      Teacher_Sex = #{teacherSex,jdbcType=VARCHAR},
+      Teacher_Login_Name = #{teacherLoginName,jdbcType=VARCHAR},
+      Teacher_Class_Id = #{teacherClassId,jdbcType=VARCHAR},
+      Teacher_Org_Id = #{teacherOrgId,jdbcType=VARCHAR},
+      Teacher_Login_Pwd = #{teacherLoginPwd,jdbcType=VARCHAR}
+    where Teacher_Id = #{teacherId,jdbcType=VARCHAR}
+  </update>
+</mapper>

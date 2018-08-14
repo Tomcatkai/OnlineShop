@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.ScoreDao" >
+  <resultMap id="BaseResultMap" type="com.project.entity.Score" >
+    <id column="Score_Id" property="scoreId" jdbcType="VARCHAR" />
+    <result column="Score_Stu_Id" property="scoreStuId" jdbcType="VARCHAR" />
+    <result column="Score_Test_Id" property="scoreTestId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    Score_Id, Score_Stu_Id, Score_Test_Id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_score
+    where Score_Id = #{scoreId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_score
+    where Score_Id = #{scoreId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.entity.Score" >
+    insert into tbl_score (Score_Id, Score_Stu_Id, Score_Test_Id
+      )
+    values (#{scoreId,jdbcType=VARCHAR}, #{scoreStuId,jdbcType=VARCHAR}, #{scoreTestId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.entity.Score" >
+    insert into tbl_score
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scoreId != null" >
+        Score_Id,
+      </if>
+      <if test="scoreStuId != null" >
+        Score_Stu_Id,
+      </if>
+      <if test="scoreTestId != null" >
+        Score_Test_Id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scoreId != null" >
+        #{scoreId,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreStuId != null" >
+        #{scoreStuId,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreTestId != null" >
+        #{scoreTestId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.entity.Score" >
+    update tbl_score
+    <set >
+      <if test="scoreStuId != null" >
+        Score_Stu_Id = #{scoreStuId,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreTestId != null" >
+        Score_Test_Id = #{scoreTestId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Score_Id = #{scoreId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.entity.Score" >
+    update tbl_score
+    set Score_Stu_Id = #{scoreStuId,jdbcType=VARCHAR},
+      Score_Test_Id = #{scoreTestId,jdbcType=VARCHAR}
+    where Score_Id = #{scoreId,jdbcType=VARCHAR}
+  </update>
+</mapper>

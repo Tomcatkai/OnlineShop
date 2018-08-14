@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.project.dao.ScoreItemDao" >
+  <resultMap id="BaseResultMap" type="com.project.entity.ScoreItem" >
+    <id column="ScoreItem_Id" property="scoreitemId" jdbcType="VARCHAR" />
+    <result column="ScoreItem_CheckPoint" property="scoreitemCheckpoint" jdbcType="VARCHAR" />
+    <result column="ScoreItem_ScoreId" property="scoreitemScoreid" jdbcType="VARCHAR" />
+    <result column="ScoreItem_UserOperation" property="scoreitemUseroperation" jdbcType="VARCHAR" />
+    <result column="ScoreItem_CheckResult" property="scoreitemCheckresult" jdbcType="VARCHAR" />
+    <result column="ScoreItem_Score" property="scoreitemScore" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ScoreItem_Id, ScoreItem_CheckPoint, ScoreItem_ScoreId, ScoreItem_UserOperation, ScoreItem_CheckResult, 
+    ScoreItem_Score
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_scoreitem
+    where ScoreItem_Id = #{scoreitemId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_scoreitem
+    where ScoreItem_Id = #{scoreitemId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.project.entity.ScoreItem" >
+    insert into tbl_scoreitem (ScoreItem_Id, ScoreItem_CheckPoint, 
+      ScoreItem_ScoreId, ScoreItem_UserOperation, 
+      ScoreItem_CheckResult, ScoreItem_Score)
+    values (#{scoreitemId,jdbcType=VARCHAR}, #{scoreitemCheckpoint,jdbcType=VARCHAR}, 
+      #{scoreitemScoreid,jdbcType=VARCHAR}, #{scoreitemUseroperation,jdbcType=VARCHAR}, 
+      #{scoreitemCheckresult,jdbcType=VARCHAR}, #{scoreitemScore,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.project.entity.ScoreItem" >
+    insert into tbl_scoreitem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="scoreitemId != null" >
+        ScoreItem_Id,
+      </if>
+      <if test="scoreitemCheckpoint != null" >
+        ScoreItem_CheckPoint,
+      </if>
+      <if test="scoreitemScoreid != null" >
+        ScoreItem_ScoreId,
+      </if>
+      <if test="scoreitemUseroperation != null" >
+        ScoreItem_UserOperation,
+      </if>
+      <if test="scoreitemCheckresult != null" >
+        ScoreItem_CheckResult,
+      </if>
+      <if test="scoreitemScore != null" >
+        ScoreItem_Score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="scoreitemId != null" >
+        #{scoreitemId,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreitemCheckpoint != null" >
+        #{scoreitemCheckpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreitemScoreid != null" >
+        #{scoreitemScoreid,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreitemUseroperation != null" >
+        #{scoreitemUseroperation,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreitemCheckresult != null" >
+        #{scoreitemCheckresult,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreitemScore != null" >
+        #{scoreitemScore,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.project.entity.ScoreItem" >
+    update tbl_scoreitem
+    <set >
+      <if test="scoreitemCheckpoint != null" >
+        ScoreItem_CheckPoint = #{scoreitemCheckpoint,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreitemScoreid != null" >
+        ScoreItem_ScoreId = #{scoreitemScoreid,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreitemUseroperation != null" >
+        ScoreItem_UserOperation = #{scoreitemUseroperation,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreitemCheckresult != null" >
+        ScoreItem_CheckResult = #{scoreitemCheckresult,jdbcType=VARCHAR},
+      </if>
+      <if test="scoreitemScore != null" >
+        ScoreItem_Score = #{scoreitemScore,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ScoreItem_Id = #{scoreitemId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.project.entity.ScoreItem" >
+    update tbl_scoreitem
+    set ScoreItem_CheckPoint = #{scoreitemCheckpoint,jdbcType=VARCHAR},
+      ScoreItem_ScoreId = #{scoreitemScoreid,jdbcType=VARCHAR},
+      ScoreItem_UserOperation = #{scoreitemUseroperation,jdbcType=VARCHAR},
+      ScoreItem_CheckResult = #{scoreitemCheckresult,jdbcType=VARCHAR},
+      ScoreItem_Score = #{scoreitemScore,jdbcType=VARCHAR}
+    where ScoreItem_Id = #{scoreitemId,jdbcType=VARCHAR}
+  </update>
+</mapper>
