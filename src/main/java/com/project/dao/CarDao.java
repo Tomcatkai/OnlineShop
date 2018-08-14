@@ -1,7 +1,9 @@
 package com.project.dao;
 
 import com.project.entity.Car;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CarDao {
     int deleteByPrimaryKey(String carId);
 

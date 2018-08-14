@@ -1,7 +1,9 @@
 package com.project.dao;
 
 import com.project.entity.PracticeScore;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface PracticeScoreDao {
     int deleteByPrimaryKey(String practiceScoreId);
 

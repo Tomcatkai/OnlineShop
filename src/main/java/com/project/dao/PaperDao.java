@@ -1,7 +1,9 @@
 package com.project.dao;
 
 import com.project.entity.Paper;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface PaperDao {
     int deleteByPrimaryKey(String paperId);
 

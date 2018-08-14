@@ -1,7 +1,9 @@
 package com.project.dao;
 
 import com.project.entity.ScoreItem;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ScoreItemDao {
     int deleteByPrimaryKey(String scoreitemId);
 

@@ -1,7 +1,9 @@
 package com.project.dao;
 
 import com.project.entity.Class;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ClassDao {
     int deleteByPrimaryKey(String classId);
 
